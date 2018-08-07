@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.jenkins-ci.plugins</groupId>
+    <artifactId>plugin</artifactId>
+    <version>3.8</version><!-- which version of Jenkins is this plugin built against? -->
+  </parent>
+
+  <groupId>net.portswigger.burp.jenkins.plugins</groupId>
+  <artifactId>burp-jenkins-integration</artifactId>
+  <version>1.0beta</version>
+  <packaging>hpi</packaging>
+  <name>Burp Scan</name>
+  <description>Fail the build if Burp finds issues in a website</description>
+  
+  <!-- get every artifact through repo.jenkins-ci.org, which proxies all the artifacts that we need -->
+  <repositories>
+    <repository>
+      <id>repo.jenkins-ci.org</id>
+      <url>http://repo.jenkins-ci.org/public/</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>repo.jenkins-ci.org</id>
+      <url>http://repo.jenkins-ci.org/public/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>net.portswigger.burp.api.driver</groupId>
+      <artifactId>burp-ci-driver</artifactId>
+      <version>1.0beta</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.7.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <developers>
+    <developer>
+      <id>support</id>
+      <name>PortSwigger Support</name>
+      <email>support@portswigger.net</email>
+    </developer>
+  </developers>
+
+  <distributionManagement>
+    <repository>
+      <id>maven.jenkins-ci.org</id>
+      <url>http://maven.jenkins-ci.org:8081/content/repositories/releases/</url>
+    </repository>
+  </distributionManagement>
+
+  <scm>
+    <connection>scm:git:ssh://github.com/jenkinsci/burp-scan-plugin.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/jenkinsci/burp-scan-plugin.git</developerConnection>
+    <url>https://github.com/jenkinsci/burp-scan-plugin</url>
+  </scm>
+
+    <properties>
+        <jenkins.version>2.7.3</jenkins.version>
+        <java.level>8</java.level>
+        <no-test-jar>false</no-test-jar>
+        <workflow.version>1.14.2</workflow.version>
+        <findbugs.failOnError>true</findbugs.failOnError>
+        <scm-api-plugin.version>2.0.8</scm-api-plugin.version>
+    </properties>
+
+  <url>http://wiki.jenkins-ci.org/display/JENKINS/Burp+Scan+plugin</url>
+
+</project>

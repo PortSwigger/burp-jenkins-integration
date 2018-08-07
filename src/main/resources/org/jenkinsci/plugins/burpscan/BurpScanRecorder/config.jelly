@@ -1,0 +1,36 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+    <f:entry title="${%ApiUrl}" field="apiUrl">
+      <f:textbox default="http://burp-api-url:1337/api_key/"/>
+    </f:entry>
+
+    <f:entry title="${%ScanDefinitionJson}" field="scanDefinitionJson" description="${%ScanDefinitionJsonDescription}">
+      <f:textarea />
+    </f:entry>
+
+    <f:entry name="severityThreshold" title="${%SeverityThreshold}" field="severityThreshold">
+        <select name="severityThreshold">
+            <option value="high" selected="${instance.severityThreshold.equals('high') ? 'true' : null}">High</option>
+            <option value="medium" selected="${(instance.severityThreshold == null || instance.severityThreshold.equals('medium')) ? 'true' : null}">Medium</option>
+            <option value="low" selected="${instance.severityThreshold.equals('low') ? 'true' : null}">Low</option>
+            <option value="info" selected="${instance.severityThreshold.equals('info') ? 'true' : null}">Information</option>
+            <option value="undefined" selected="${instance.severityThreshold.equals('undefined') ? 'true' : null}">Undefined</option>
+            <option value="false_positive" selected="${instance.severityThreshold.equals('false_positive') ? 'true' : null}">False Positive</option>
+        </select>
+    </f:entry>
+
+    <f:entry name="confidenceThreshold" title="${%ConfidenceThreshold}" field="confidenceThreshold">
+        <select name="confidenceThreshold">
+            <option value="certain" selected="${instance.confidenceThreshold.equals('certain') ? 'true' : null}">Certain</option>
+            <option value="firm" selected="${instance.confidenceThreshold.equals('firm') ? 'true' : null}">Firm</option>
+            <option value="tentative" selected="${(instance.confidenceThreshold == null || instance.confidenceThreshold.equals('tentative')) ? 'true' : null}">Tentative</option>
+            <option value="undefined" selected="${instance.confidenceThreshold.equals('undefined') ? 'true' : null}">Undefined</option>
+        </select>
+    </f:entry>
+
+    <f:entry title="${%OutputJsonIssues}" field="outputJsonIssues">
+      <f:checkbox />
+    </f:entry>
+
+    <i>Note that the dynamic input for this plugin is the content of the previous step's build output, specifically lines of the form "BURP_SCAN_URL = &lt;URL to scan&gt;"</i>
+</j:jelly>
