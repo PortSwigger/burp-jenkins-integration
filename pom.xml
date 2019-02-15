@@ -8,7 +8,7 @@
 
   <groupId>net.portswigger.burp.jenkins.plugins</groupId>
   <artifactId>burp-jenkins-integration</artifactId>
-  <version>1.0beta</version>
+  <version>1.0.6beta</version>
   <packaging>hpi</packaging>
   <name>Burp Scan</name>
   <description>Fail the build if Burp finds issues in a website</description>
@@ -32,7 +32,7 @@
     <dependency>
       <groupId>net.portswigger.burp.api.driver</groupId>
       <artifactId>burp-ci-driver</artifactId>
-      <version>1.0beta</version>
+      <version>1.0.6beta</version>
     </dependency>
   </dependencies>
 

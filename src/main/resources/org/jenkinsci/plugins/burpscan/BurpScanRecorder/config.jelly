@@ -28,8 +28,16 @@
         </select>
     </f:entry>
 
+    <f:entry title="${%Timeout}" field="timeout">
+      <f:textbox default="120"/>
+    </f:entry>
+
     <f:entry title="${%OutputJsonIssues}" field="outputJsonIssues">
       <f:checkbox />
+    </f:entry>
+
+    <f:entry title="${%SelfSignedCertX509}" field="selfSignedCertX509" description="${%SelfSignedCertX509Description}">
+      <f:textarea />
     </f:entry>
 
     <i>Note that the dynamic input for this plugin is the content of the previous step's build output, specifically lines of the form "BURP_SCAN_URL = &lt;URL to scan&gt;"</i>

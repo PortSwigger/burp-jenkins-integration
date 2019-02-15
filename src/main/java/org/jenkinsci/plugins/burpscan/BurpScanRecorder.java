@@ -1,5 +1,6 @@
 package org.jenkinsci.plugins.burpscan;
 
+import com.google.common.base.Strings;
 import hudson.Extension;
 import hudson.Launcher;
 import hudson.model.AbstractBuild;
@@ -38,7 +39,9 @@ public class BurpScanRecorder extends Builder
     private final String scanDefinitionJson;
     private final String severityThreshold;
     private final String confidenceThreshold;
+    private final String timeout;
     private boolean outputJsonIssues;
+    private final String selfSignedCertX509;
 
     @DataBoundConstructor
     public BurpScanRecorder(
@@ -46,13 +49,17 @@ public class BurpScanRecorder extends Builder
             String scanDefinitionJson,
             String severityThreshold,
             String confidenceThreshold,
-            boolean outputJsonIssues
+            String timeout,
+            boolean outputJsonIssues,
+            String selfSignedCertX509
     ) {
         this.apiUrl = apiUrl;
         this.scanDefinitionJson = scanDefinitionJson;
         this.severityThreshold = severityThreshold;
         this.confidenceThreshold = confidenceThreshold;
+        this.timeout = timeout;
         this.outputJsonIssues = outputJsonIssues;
+        this.selfSignedCertX509 = selfSignedCertX509;
     }
 
     // getters for data-binding
@@ -82,9 +89,21 @@ public class BurpScanRecorder extends Builder
     }
 
     @SuppressWarnings("unused")
+    public String getTimeout()
+    {
+        return timeout;
+    }
+
+    @SuppressWarnings("unused")
     public boolean getOutputJsonIssues()
     {
         return outputJsonIssues;
+    }
+
+    @SuppressWarnings("unused")
+    public String getSelfSignedCertX509()
+    {
+        return selfSignedCertX509;
     }
 
     @Override
@@ -94,6 +113,7 @@ public class BurpScanRecorder extends Builder
 //        listener.getLogger().println("DEBUG: scanDefinitionJson = " + scanDefinitionJson);
 //        listener.getLogger().println("DEBUG: severityThreshold = " + severityThreshold);
 //        listener.getLogger().println("DEBUG: confidenceThreshold = " + confidenceThreshold);
+//        listener.getLogger().println("DEBUG: timeout = " + timeout);
 //        listener.getLogger().println("DEBUG: outputJsonIssues = " + outputJsonIssues);
 
         BurpCiSourceConsumer burpCiSourceConsumer = BurpCiSourceConsumer.fromReader(logReader(build));
@@ -101,16 +121,18 @@ public class BurpScanRecorder extends Builder
         try {
             return new BurpCiDriver(
                         apiUrl,
-                    scanDefinitionJson,
+                        scanDefinitionJson,
                         burpCiSourceConsumer.getUrls(),
                         severityThreshold,
                         confidenceThreshold,
+                        timeout,
                         burpCiSourceConsumer.getIgnores(),
                         null,
                         null,
-                        outputJsonIssues ? listener.getLogger()::println : null)
+                        outputJsonIssues ? listener.getLogger()::println : null,
+                        selfSignedCertX509 == null || selfSignedCertX509.isEmpty() ? null : selfSignedCertX509) // TODO: in 1.0.7 nullOrEmpty is done in the driver
                     .scan(listener.getLogger()::println)
-                    .isEmpty();
+                    .success;
         }
         catch (IOException e)
         {
