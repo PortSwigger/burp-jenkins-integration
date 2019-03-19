@@ -58,19 +58,6 @@
     </developer>
   </developers>
 
-  <distributionManagement>
-    <repository>
-      <id>maven.jenkins-ci.org</id>
-      <url>http://maven.jenkins-ci.org:8081/content/repositories/releases/</url>
-    </repository>
-  </distributionManagement>
-
-  <scm>
-    <connection>scm:git:ssh://github.com/jenkinsci/burp-scan-plugin.git</connection>
-    <developerConnection>scm:git:ssh://git@github.com/jenkinsci/burp-scan-plugin.git</developerConnection>
-    <url>https://github.com/jenkinsci/burp-scan-plugin</url>
-  </scm>
-
     <properties>
         <jenkins.version>2.7.3</jenkins.version>
         <java.level>8</java.level>
@@ -79,7 +66,5 @@
         <findbugs.failOnError>true</findbugs.failOnError>
         <scm-api-plugin.version>2.0.8</scm-api-plugin.version>
     </properties>
-
-  <url>http://wiki.jenkins-ci.org/display/JENKINS/Burp+Scan+plugin</url>
 
 </project>
